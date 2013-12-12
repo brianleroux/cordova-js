@@ -40,11 +40,16 @@ module.exports = function(grunt) {
             },
             src: [ 'src/**/*.js' ]
         },
+        jasmine: {
+            src: ['pkg/cordova.test.js', 'test/bootstrap.js'],
+            options: {specs: 'test/**/*.js'}
+        }
     });
 
     // external tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
 
     // custom tasks
     grunt.loadTasks('tasks');
