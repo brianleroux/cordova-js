@@ -33,6 +33,9 @@ module.exports = function(grunt) {
             "ubuntu": {},
             "browser": {}
         },
+        cjs: {
+            android:{}      
+        },
         clean: ['pkg'],
         jshint: {
             options: {
