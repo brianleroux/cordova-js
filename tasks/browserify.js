@@ -30,12 +30,22 @@ var pathToCordova     = path.join(pathToTmp, 'cordova');
 
 
 module.exports = function(grunt) {
-    grunt.registerMultiTask('cjs', 'Packages cordova.js', function() {
+    grunt.registerMultiTask('browserify', 'Packages cordova.js', function() {
 
         var done           = this.async();
         var platformName   = this.target;
         var pathToPlatform = path.join(__dirname, '..', 'src', platformName);
-        
+
+/*
+ *   // compile basic stuff
+ *   mkdirp tmp
+ *   cpr ./src/common ./tmp
+ *   cpr ./src/[platform] ./tmp 
+ *   cp ./src/cordova.js ./tmp/cordova.js
+ *                  
+ * */
+
+
         // create ./tmp and ./tmp/node_modules
         mkdirp(pathToTmp);
         

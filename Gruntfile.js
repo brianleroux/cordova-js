@@ -33,7 +33,7 @@ module.exports = function(grunt) {
             "ubuntu": {},
             "browser": {}
         },
-        cjs: {
+        browserify: {
             android:{}      
         },
         clean: ['pkg'],
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
     grunt.loadTasks('tasks');
 
     // defaults
-    grunt.registerTask('default', ['build', 'test']);
-    grunt.registerTask('build', ['compile', 'jshint', 'whitespace-check']);
-    grunt.registerTask('test', ['_test']);
+    grunt.registerTask('default', ['browserify']);
+    //grunt.registerTask('build', ['compile', 'jshint', 'whitespace-check']);
+    //grunt.registerTask('test', ['_test']);
 };
