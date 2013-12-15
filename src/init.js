@@ -19,11 +19,11 @@
  *
 */
 
-var channel = require('cordova/channel');
-var cordova = require('cordova');
-var modulemapper = require('cordova/modulemapper');
-var platform = require('cordova/platform');
-var pluginloader = require('cordova/pluginloader');
+var channel      = require('./channel');
+var cordova      = require('./cordova');
+var platform     = require('./platform');
+var pluginloader = require('./pluginloader');
+var modulemapper = require('./modulemapper');
 
 var platformInitChannelsArray = [channel.onNativeReady, channel.onPluginsReady];
 
@@ -96,9 +96,10 @@ if (window._nativeReady) {
     channel.onNativeReady.fire();
 }
 
-modulemapper.clobbers('cordova', 'cordova');
-modulemapper.clobbers('cordova/exec', 'cordova.exec');
-modulemapper.clobbers('cordova/exec', 'Cordova.exec');
+// FIXME not sure if this is right
+//modulemapper.clobbers('cordova', 'cordova');
+//modulemapper.clobbers('cordova/exec', 'cordova.exec');
+//modulemapper.clobbers('cordova/exec', 'Cordova.exec');
 
 // Call the platform-specific initialization.
 platform.bootstrap && platform.bootstrap();
