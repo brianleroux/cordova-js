@@ -18,11 +18,12 @@
  * under the License.
  *
 */
+var channel = require('./channel');
 
 module.exports = {
     id: 'ios',
     bootstrap: function() {
-        require('cordova/channel').onNativeReady.fire();
+        channel.onNativeReady.fire();
     }
 };
 

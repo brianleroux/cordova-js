@@ -16,46 +16,44 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-var path         = require('path');
-var browserify   = require('browserify');
-var mkdirp       = require('mkdirp').sync;
-var cp           = require('cp').sync;
-var cpr          = require('cpr');
-var b            = browserify();
-var pathToTmp    = path.join(__dirname, '..', 'tmp');
-var pathToSrc    = path.join(__dirname, '..', 'src');
-var pathToCommon = path.join(pathToSrc, 'common');
-
+var fs             = require('fs');
+var path           = require('path');
+var browserify     = require('browserify');
+var mkdirp         = require('mkdirp').sync;
+var cp             = require('cp').sync;
+var cpr            = require('cpr');
+var b              = browserify();
+var pathToTmp      = path.join(__dirname, '..', 'tmp');
+var pathToSrc      = path.join(__dirname, '..', 'src');
+var pathToCommon   = path.join(pathToSrc, 'common');
+var pathToEntrySrc = path.join(pathToSrc, 'init.js'); 
 
 module.exports = function(grunt) {
     grunt.registerMultiTask('browserify', 'Packages cordova.js', function() {
 
-        var done           = this.async();
-        var platformName   = this.target;
-        var pathToPlatform = path.join(__dirname, '..', 'src', platformName);
+        var done              = this.async();
+        var platformName      = this.target;
+        var pathToPlatform    = path.join(__dirname, '..', 'src', 'platforms', platformName);
+        var pathToTmpPlatform = path.join(pathToTmp, platformName);
+        var pathToEntryTmp    = path.join(pathToTmpPlatform, 'init.js'); 
 
         // create a working directory
-        mkdirp(pathToTmp);
+        mkdirp(pathToTmpPlatform);
         // recursive copy ./src/common to ./tmp
-        cpr(pathToCommon, pathToTmp, function(err, files) {
+        cpr(pathToCommon, pathToTmpPlatform, function(err, files) {
             // recursive copy ./src/[platform] to ./tmp
-            cpr(pathToPlatform, pathToTmp, function(err, files) {
+            cpr(pathToPlatform, pathToTmpPlatform, function(err, files) {
 		        // copy in entry file
-                cp(path.join(pathToSrc, 'init.js'), path.join(pathToTmp, 'init.js'));        
-                // FIXME call browserify
+                cp(pathToEntrySrc, pathToEntryTmp);        
+                // call browserify
+                b.add(pathToEntryTmp);
+                b.bundle().pipe(fs.createWriteStream(path.join(pathToTmpPlatform, 'x.js')));
                 // FIXME remove whitespace for windows platforms
+                // FIXME clobber tmp dir
                 done();
             });
         })
         
-        
-        /*
-        b.add('./browser/main.js');
-        b.bundle().pipe(process.stdout);
-
-        generate(platformName, useWindowsLineEndings, done);
-        */
-        // if its windows add line endings
-
+    // End of task
     });
 }

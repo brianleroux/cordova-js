@@ -18,6 +18,8 @@
  * under the License.
  *
 */
+var moduleMapper = require('./modulemapper');
+var channel = require('./channel');
 
 module.exports = {
     id: 'browser',
@@ -25,8 +27,6 @@ module.exports = {
 
     bootstrap: function() {
 
-        var moduleMapper = require('cordova/modulemapper');
-        var channel = require('cordova/channel');
 
         moduleMapper.clobbers('cordova/exec/proxy', 'cordova.commandProxy');
 

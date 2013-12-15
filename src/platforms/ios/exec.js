@@ -25,10 +25,10 @@
  *
  * @private
  */
-var cordova = require('cordova'),
-    channel = require('cordova/channel'),
-    utils = require('cordova/utils'),
-    base64 = require('cordova/base64'),
+var cordova = require('./cordova'),
+    channel = require('./channel'),
+    utils = require('./utils'),
+    base64 = require('./base64'),
     jsToNativeModes = {
         IFRAME_NAV: 0,
         XHR_NO_PAYLOAD: 1,

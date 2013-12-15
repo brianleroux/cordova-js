@@ -93,7 +93,7 @@ function injectPluginScript(pathPrefix, finishPluginLoading) {
 
     injectScript(pluginPath, function() {
         try {
-            var moduleList = require("cordova/plugin_list");
+            //var moduleList = require("cordova/plugin_list");
             handlePluginsObject(pathPrefix, moduleList, finishPluginLoading);
         }
         catch (e) {

@@ -123,7 +123,7 @@ channel.join(function() {
     // constructors have run and cordova info has been received from native
     // side.
     channel.join(function() {
-        require('cordova').fireDocumentEvent('deviceready');
+        cordova.fireDocumentEvent('deviceready');
     }, channel.deviceReadyChannelsArray);
 
 }, platformInitChannelsArray);
