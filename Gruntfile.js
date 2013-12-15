@@ -16,25 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
 */
+        /*  
+         *  FIXME
+         *  "amazon-fireos": {},
+            "android": {},
+            "blackberry10": {},
+            "browser": {},
+            "firefoxos": {},
+            "ios": {},
+            "osx": {},
+            "ubuntu": {},
+            "windows8": {},
+            "windowsphone": {} */
+
 module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        compile: {
-            "amazon-fireos": {},
-            "android": {},
-            "blackberry10": {},
-            "ios": {},
-            "osx": {},
-            "test": {},
-            "windows8": { useWindowsLineEndings: true },
-            "windowsphone": { useWindowsLineEndings: true },
-            "firefoxos": {},
-            "ubuntu": {},
-            "browser": {}
-        },
         browserify: {
-            android:{}      
+            "android": {}
         },
         clean: ['pkg'],
         jshint: {

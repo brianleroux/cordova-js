@@ -19,7 +19,7 @@
  *
 */
 
-var exec = require('cordova/exec');
+var exec = require('./exec');
 
 module.exports = {
     /**

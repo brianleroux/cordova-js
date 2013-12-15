@@ -33,10 +33,10 @@
  * @param {String} action       Action to be run in cordova
  * @param {String[]} [args]     Zero or more arguments to pass to the method
  */
-var cordova = require('cordova'),
-    nativeApiProvider = require('cordova/android/nativeapiprovider'),
-    utils = require('cordova/utils'),
-    base64 = require('cordova/base64'),
+var cordova = require('./cordova'),
+    nativeApiProvider = require('./nativeapiprovider'),
+    utils = require('./utils'),
+    base64 = require('./base64'),
     jsToNativeModes = {
         PROMPT: 0,
         JS_OBJECT: 1,

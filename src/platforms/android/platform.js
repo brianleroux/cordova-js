@@ -18,15 +18,14 @@
  * under the License.
  *
 */
+var channel      = require('./channel');
+var cordova      = require('./cordova');
+var exec         = require('./exec');
+var modulemapper = require('./modulemapper');
 
 module.exports = {
     id: 'android',
     bootstrap: function() {
-        var channel = require('cordova/channel'),
-            cordova = require('cordova'),
-            exec = require('cordova/exec'),
-            modulemapper = require('cordova/modulemapper');
-
         // Tell the native code that a page change has occurred.
         exec(null, null, 'PluginManager', 'startup', []);
         // Tell the JS that the native side is ready.

@@ -16,17 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-var path            = require('path');
-var browserify      = require('browserify');
-var mkdirp          = require('mkdirp').sync;
-var cp              = require('cp').sync;
-var cpr             = require('cpr');
-
-var b                 = browserify();
-var pathToCordovaJS   = path.join(__dirname, '..', 'src', 'cordova.js')
-var pathToTmp         = path.join(__dirname, '..', 'tmp');
-var pathToCommon      = path.join(__dirname, '..', 'src', 'common');
-var pathToCordova     = path.join(pathToTmp, 'cordova');
+var path         = require('path');
+var browserify   = require('browserify');
+var mkdirp       = require('mkdirp').sync;
+var cp           = require('cp').sync;
+var cpr          = require('cpr');
+var b            = browserify();
+var pathToTmp    = path.join(__dirname, '..', 'tmp');
+var pathToSrc    = path.join(__dirname, '..', 'src');
+var pathToCommon = path.join(pathToSrc, 'common');
 
 
 module.exports = function(grunt) {
@@ -36,28 +34,16 @@ module.exports = function(grunt) {
         var platformName   = this.target;
         var pathToPlatform = path.join(__dirname, '..', 'src', platformName);
 
-/*
- *   // compile basic stuff
- *   mkdirp tmp
- *   cpr ./src/common ./tmp
- *   cpr ./src/[platform] ./tmp 
- *   cp ./src/cordova.js ./tmp/cordova.js
- *                  
- * */
-
-
-        // create ./tmp and ./tmp/node_modules
+        // create a working directory
         mkdirp(pathToTmp);
-        
-        // copy ./src/cordova.js to ./tmp/cordova.js
-		cp(pathToCordovaJS, path.join(pathToTmp, 'cordova.js'));        
-        
-        // recursive copy ./src/common to ./tmp/cordova
-        cpr(pathToCommon, pathToCordova, function(err, files) {
-            // recursive copy ./src/[platform] to ./tmp/cordova
-            cpr(pathToPlatform, pathToCordova, function(err, files) {
-                
-                // move platform
+        // recursive copy ./src/common to ./tmp
+        cpr(pathToCommon, pathToTmp, function(err, files) {
+            // recursive copy ./src/[platform] to ./tmp
+            cpr(pathToPlatform, pathToTmp, function(err, files) {
+		        // copy in entry file
+                cp(path.join(pathToSrc, 'init.js'), path.join(pathToTmp, 'init.js'));        
+                // FIXME call browserify
+                // FIXME remove whitespace for windows platforms
                 done();
             });
         })
