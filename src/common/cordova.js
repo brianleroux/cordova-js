@@ -20,8 +20,8 @@
 */
 
 
-var channel = require('cordova/channel');
-var platform = require('cordova/platform');
+var channel = require('./channel');
+var platform = require('./platform');
 
 /**
  * Intercept calls to addEventListener + removeEventListener and handle deviceready,
