@@ -28,6 +28,7 @@ var pathToSrc      = path.join(__dirname, '..', 'src');
 var pathToCommon   = path.join(pathToSrc, 'common');
 var pathToEntrySrc = path.join(pathToSrc, 'init.js'); 
 
+
 module.exports = function(grunt) {
     grunt.registerMultiTask('browserify', 'Packages cordova.js', function() {
 
@@ -36,7 +37,11 @@ module.exports = function(grunt) {
         var pathToPlatform    = path.join(__dirname, '..', 'src', 'platforms', platformName);
         var pathToTmpPlatform = path.join(pathToTmp, platformName);
         var pathToEntryTmp    = path.join(pathToTmpPlatform, 'init.js'); 
+        var pathToPkg         = path.join(__dirname, '..', 'pkg', platformName);
+        var outFile           = path.join(pathToPkg, 'cordova.js');
 
+        // create an output directory
+        mkdirp(pathToPkg);
         // create a working directory
         mkdirp(pathToTmpPlatform);
         // recursive copy ./src/common to ./tmp
@@ -45,11 +50,14 @@ module.exports = function(grunt) {
             cpr(pathToPlatform, pathToTmpPlatform, function(err, files) {
 		        // copy in entry file
                 cp(pathToEntrySrc, pathToEntryTmp);        
+                
                 // call browserify
                 b.add(pathToEntryTmp);
-                b.bundle().pipe(fs.createWriteStream(path.join(pathToTmpPlatform, 'x.js')));
+                b.bundle().pipe(fs.createWriteStream(outFile));
                 // FIXME remove whitespace for windows platforms
                 // FIXME clobber tmp dir
+                // FIXME debug version has sourcemaps
+                // FIXME release version minified
                 done();
             });
         })
