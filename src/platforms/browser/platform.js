@@ -28,7 +28,7 @@ module.exports = {
     bootstrap: function() {
 
 
-        moduleMapper.clobbers('cordova/exec/proxy', 'cordova.commandProxy');
+        moduleMapper.clobbers('./execproxy', 'cordova.commandProxy');
 
         channel.onPluginsReady.subscribe(function () {
             channel.onNativeReady.fire();

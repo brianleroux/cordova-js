@@ -58,6 +58,9 @@ module.exports = function(grunt) {
                 // FIXME clobber tmp dir
                 // FIXME debug version has sourcemaps
                 // FIXME release version minified
+                // TODO package into standalone module that accepts cordova_plugins format thing
+                // TODO if that thing is empty proceed
+                // TODO otherwise copy those modules into ./tmp/[PLATFORM] and transform/compile
                 done();
             });
         })
